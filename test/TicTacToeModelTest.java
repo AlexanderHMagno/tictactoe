@@ -16,12 +16,28 @@ import static org.junit.Assert.fail;
  */
 public class TicTacToeModelTest {
 
-  private TicTacToe ttt1 = new TicTacToeModel();
+  private final TicTacToe  ttt1 = new TicTacToeModel();
 
   @Test
   public void testMove() {
     ttt1.move(0, 0);
     assertEquals(Player.O, ttt1.getTurn());
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testMoveIllegalInput() {
+    ttt1.move(20, 0);
+  }
+
+  @Test(expected = IllegalArgumentException.class)
+  public void testMoveSpaceTaken() {
+    ttt1.move(0, 0);
+    ttt1.move(0, 0);
+  }
+
+
+  @Test
+  public void name() {
   }
 
   @Test
@@ -144,5 +160,53 @@ public class TicTacToeModelTest {
     assertEquals(Player.O, bd2[2][0]);
   }
 
-  // TODO: test case where board is full AND there is a winner
+  @Test
+  public void testBoardIsFullAndWinner () {
+
+    ttt1.move(0,0); //x
+    ttt1.move(0,1); //o
+    ttt1.move(0,2); //x
+
+    ttt1.move(1,0); //o
+    ttt1.move(1,2); //x
+    ttt1.move(1,1); //o
+
+    ttt1.move(2,1); //x
+    ttt1.move(2,0); //o
+    ttt1.move(2,2); //x Column 2 fill of Xs and the board is full.
+
+    assertTrue(ttt1.isGameOver());
+    assertEquals(Player.X, ttt1.getWinner());
+
+  }
+
+
+  @Test
+  public void testBoardIsFullAndNotWinner() {
+
+    ttt1.move(0,0); //x
+    ttt1.move(0,1); //o
+    ttt1.move(0,2); //x
+
+    ttt1.move(1,0); //o
+    ttt1.move(1,2); //x
+    ttt1.move(1,1); //o
+
+    ttt1.move(2,1); //x
+    ttt1.move(2,2); //o
+    ttt1.move(2,0); //x
+
+    assertTrue(ttt1.isGameOver());
+    assertEquals(null, ttt1.getWinner());
+
+  }
+
+//  //Fill board,
+//    for (int i = 0; i < 2; i++) {
+//    for (int j = 0; j <= 2 ; j++) {
+//      ttt1.move(i, j);
+//    }
+//  }
+
+
 }
