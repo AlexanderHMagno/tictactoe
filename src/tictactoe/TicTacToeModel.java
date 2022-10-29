@@ -4,36 +4,41 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * This class represent the Inner functionalities of the TicTacToe game. It represents
+ * the model in the General MVC design pattern. It has an Associative array (2D array) that represents
+ * the board and a counter.
+ * This class implements the TicTacToe Interface.
+ */
 public class TicTacToeModel implements TicTacToe {
-  // add your implementation here
-  private final Player[][] board = new Player[3][3];
+
+  private final Player[][] board;
   private int round;
 
+  /**
+   * Constructor of TicTacToe, it initializes the game round to zero and
+   * establish the boundaries of the game.
+   */
   public TicTacToeModel() {
+    this.board = new Player[3][3];
     this.round = 0;
   }
 
   @Override
   public void move(int r, int c) throws IllegalArgumentException, IllegalStateException {
 
+    //Conditions
+
     //Check if the game has ended
-    if (this.isGameOver()) {
-      throw  new IllegalStateException("Game has been completed");
-    }
-
-    //the position is otherwise invalid
-    if (r < 0 || c < 0 || r > 2 || c > 2) {
-      throw  new IllegalArgumentException("Out of boundary");
-    }
+    if (this.isGameOver()) throw  new IllegalStateException("Game has been completed");
+    //the position is invalid
+    this.OutOfBoundary(r,c);
     //Check if the position is occupied
-    if(this.getMarkAt(r,c) != null) {
-      throw new IllegalArgumentException("Position is taken");
-    }
+    if(this.getMarkAt(r,c) != null) throw new IllegalArgumentException("Position is taken");
 
-    //Mark the cross
+    //Add Player to this position.
     this.board[r][c] =  this.getTurn();
     this.round++;
-
 
   }
 
@@ -46,11 +51,7 @@ public class TicTacToeModel implements TicTacToe {
   public boolean isGameOver() {
 
     //game has a winner or is full
-    if (this.getWinner() != null || this.round >= 9) {
-      return true;
-    }
-
-    return false;
+    return this.getWinner() != null || this.round >= 9;
   }
 
   @Override
@@ -88,17 +89,13 @@ public class TicTacToeModel implements TicTacToe {
   @Override
   public Player[][] getBoard() {
     //Deep copy of Associative array.
-    Player[][] board1 = Arrays.stream(this.board).map(Player[]::clone).toArray(Player[][]::new);
-
-    return board1;
+    return Arrays.stream(this.board).map(Player[]::clone).toArray(Player[][]::new);
   }
 
   @Override
   public Player getMarkAt(int r, int c) throws IllegalArgumentException {
     //the position is otherwise invalid
-    if (r < 0 || c < 0 || r > 2 || c > 2) {
-      throw  new IllegalArgumentException("Out of boundary");
-    }
+    this.OutOfBoundary(r,c);
 
     return this.board[r][c];
   }
@@ -110,22 +107,19 @@ public class TicTacToeModel implements TicTacToe {
       row -> " " + Arrays.stream(row).map(
         p -> p == null ? " " : p.toString()).collect(Collectors.joining(" | ")))
           .collect(Collectors.joining("\n-----------\n"));
-    // This is the equivalent code as above, but using iteration, and still using 
-    // the helpful built-in String.join method.
-    /**********
-    List<String> rows = new ArrayList<>();
-    for(Player[] row : getBoard()) {
-      List<String> rowStrings = new ArrayList<>();
-      for(Player p : row) {
-        if(p == null) {
-          rowStrings.add(" ");
-        } else {
-          rowStrings.add(p.toString());
-        }
-      }
-      rows.add(" " + String.join(" | ", rowStrings));
+  }
+
+  /**
+   * Check the coordinates of r and c are within the board
+   * @param r the row of the intended move
+   * @param c the column of the intended move
+   * @throws IllegalArgumentException When the column or row is greater or lower than board size
+   */
+  private void OutOfBoundary (int r, int c) throws IllegalArgumentException {
+
+    //the position is otherwise invalid
+    if (r < 0 || c < 0 || r > 2 || c > 2) {
+      throw  new IllegalArgumentException("Out of boundary");
     }
-    return String.join("\n-----------\n", rows);
-    ************/
   }
 }
