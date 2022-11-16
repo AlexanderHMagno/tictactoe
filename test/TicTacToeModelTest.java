@@ -314,4 +314,21 @@ public class TicTacToeModelTest {
     assertEquals(Player.X,ttt1.getWinner());
   }
 
+  /**
+   * Test vertical winner
+   */
+  @Test
+  public void testVerticalWinner (){
+    assertNull(ttt1.getWinner());
+    ttt1.move(0,0);
+    assertNull(ttt1.getWinner());
+    ttt1.move(1,1);
+    assertNull(ttt1.getWinner());
+    ttt1.move(1,0);
+    assertNull(ttt1.getWinner());
+    ttt1.move(2,2);
+    assertNull(ttt1.getWinner());
+    ttt1.move(2,0);
+    assertEquals(Player.X,ttt1.getWinner());
+  }
 }

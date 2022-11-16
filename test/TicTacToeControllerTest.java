@@ -1,9 +1,7 @@
 import static org.junit.Assert.assertEquals;
 
-import tictactoe.TicTacToe;
-import tictactoe.TicTacToeConsoleController;
-import tictactoe.TicTacToeController;
-import tictactoe.TicTacToeModel;
+import tictactoe.*;
+
 import java.io.StringReader;
 import java.util.Arrays;
 import org.junit.Test;
@@ -32,6 +30,7 @@ public class TicTacToeControllerTest {
     StringBuilder gameLog = new StringBuilder();
     TicTacToeController c = new TicTacToeConsoleController(new StringReader("2 2 q"), gameLog);
     c.playGame(m);
+
     assertEquals("   |   |  \n"
         + "-----------\n"
         + "   |   |  \n"
@@ -50,6 +49,7 @@ public class TicTacToeControllerTest {
         + "   | X |  \n"
         + "-----------\n"
         + "   |   |  \n", gameLog.toString());
+
   }
 
   @Test
@@ -59,6 +59,7 @@ public class TicTacToeControllerTest {
     StringBuilder gameLog = new StringBuilder();
     TicTacToeController c = new TicTacToeConsoleController(input, gameLog);
     c.playGame(m);
+
     // split the output into an array of lines
     String[] lines = gameLog.toString().split("\n");
     // check that it's the correct number of lines
