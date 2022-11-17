@@ -251,7 +251,7 @@ public class TicTacToeControllerTest {
   /**
    * Check the model is valid, if null passed throw error
    */
-  @Test (expected = IllegalStateException.class)
+  @Test (expected = IllegalArgumentException.class)
   public void invalidModel () {
 
     StringReader input = new StringReader("2 2");

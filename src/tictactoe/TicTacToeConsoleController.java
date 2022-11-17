@@ -29,14 +29,13 @@ public class TicTacToeConsoleController implements TicTacToeController{
             Objects.requireNonNull(out);
             this.in = in;
             this.out = out;
-
         } catch (Exception n) {
             throw new IllegalArgumentException();
         }
     }
 
     @Override
-    public void playGame(TicTacToe m) throws IllegalStateException {
+    public void playGame(TicTacToe m) throws IllegalStateException,IllegalArgumentException {
 
         //Check we have a valid model
         testValidModel(m);
@@ -125,11 +124,11 @@ public class TicTacToeConsoleController implements TicTacToeController{
      * @param m Tic Tac Toe Model
      * @throws IllegalStateException If the Model is invalid
      */
-    private void testValidModel (TicTacToe m) throws IllegalStateException {
+    private void testValidModel (TicTacToe m) throws IllegalArgumentException {
         try {
             Objects.requireNonNull(m);
         } catch (Exception e) {
-            throw new IllegalStateException();
+            throw new IllegalArgumentException();
         }
     }
 }
