@@ -23,8 +23,16 @@ public class TicTacToeConsoleController implements TicTacToeController{
      * @param out The object to aggregate the information
      */
     public TicTacToeConsoleController(Readable in, Appendable out) throws IllegalArgumentException {
-        this.in = in;
-        this.out = out;
+
+        try {
+            Objects.requireNonNull(in);
+            Objects.requireNonNull(out);
+            this.in = in;
+            this.out = out;
+
+        } catch (Exception n) {
+            throw new IllegalArgumentException();
+        }
     }
 
     @Override

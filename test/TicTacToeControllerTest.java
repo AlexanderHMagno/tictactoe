@@ -121,7 +121,7 @@ public class TicTacToeControllerTest {
                     "Game is over! Tie game.", lastMsg);
   }
 
-  // Playgame, where there is a winner O
+  // PlayGame, where there is a winner O
   @Test
   public void testWinnerO () {
 
@@ -259,6 +259,14 @@ public class TicTacToeControllerTest {
     TicTacToeController c = new TicTacToeConsoleController(input, gameLog);
     c.playGame(null);
 
+  }
+
+  /**
+   * Check the model is valid, if null passed throw error
+   */
+  @Test (expected = IllegalArgumentException.class)
+  public void invalidArgumentsController() {
+    new TicTacToeConsoleController(null, null);
   }
 
   /**
