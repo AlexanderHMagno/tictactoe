@@ -227,7 +227,7 @@ public class TicTacToeControllerTest {
                     "Not a valid number: b\n" +
                     "Not a valid number: c\n" +
                     "Not a valid number: 1a\n" +
-                    "Not a valid move: -100, 1", lastMsg);
+                    "Not a valid move: 1, -100", lastMsg);
   }
   // Input including valid moves interspersed with invalid moves, game is played to completion
   @Test

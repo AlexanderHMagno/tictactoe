@@ -47,7 +47,6 @@ public class TicTacToeConsoleController implements TicTacToeController{
 
                     // Check for 2 integers in row and column
                     for (int i = 0; i < data.length; i++) {
-
                         if (data[i] != placeholder) continue;
 
                         if (scan.hasNextInt()) {
@@ -57,6 +56,7 @@ public class TicTacToeConsoleController implements TicTacToeController{
                             return;
                         } else {
                             this.printLine("Not a valid number: " + scan.next());
+                            i = -1;
                         }
                     }
 
