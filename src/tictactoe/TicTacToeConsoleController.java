@@ -22,7 +22,7 @@ public class TicTacToeConsoleController implements TicTacToeController{
      * @param in The source of the input.
      * @param out The object to aggregate the information
      */
-    public TicTacToeConsoleController(Readable in, Appendable out) {
+    public TicTacToeConsoleController(Readable in, Appendable out) throws IllegalArgumentException {
         this.in = in;
         this.out = out;
     }
@@ -45,12 +45,19 @@ public class TicTacToeConsoleController implements TicTacToeController{
                 //Another loop to control the users input, q|Q or integers
                 while (true) {
 
+                    // Check for 2 integers in row and column
                     for (int i = 0; i < data.length; i++) {
-                        if (scan.hasNext("(?i)q")) {
+
+                        if (data[i] != placeholder) continue;
+
+                        if (scan.hasNextInt()) {
+                            data[i] = scan.nextInt();
+                        } else if (scan.hasNext("(?i)q")) {
                             this.quitGame(m);
                             return;
+                        } else {
+                            this.printLine("Not a valid number: " + scan.next());
                         }
-                        this.inputValidation(data,i,scan);
                     }
 
                     //Verify we have a valid input
@@ -103,17 +110,4 @@ public class TicTacToeConsoleController implements TicTacToeController{
         this.printLine(m.toString());
     }
 
-    /**
-     * Verify the input is a valid input otherwise display the text indicating the invalid input
-     * @param data coordinates of row and column
-     * @param index indicate if the number should be added to row (0) or column (1)
-     * @param scan The Readable to obtain users input
-     * @throws IOException If invalid value is passed
-     */
-    private void inputValidation (int[] data, int index, Scanner scan) throws IOException {
-        if (data[index] == placeholder) {
-            if(scan.hasNextInt()) data[index] = scan.nextInt();
-            else this.printLine("Not a valid number: " + scan.next());
-        }
-    }
 }

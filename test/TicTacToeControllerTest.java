@@ -97,7 +97,7 @@ public class TicTacToeControllerTest {
 
   // Play game to completion, where there is a winner
   @Test
-  public void testWinner () {
+  public void testWinnerX () {
     String lastMsg = this.runGameHelper("1 1 1 2 1 3 2 1 2 3 1 3 3 1 2 2 3 2 3 3", 0);
     assertEquals(
             " X | O | X\n" +
@@ -106,8 +106,36 @@ public class TicTacToeControllerTest {
             "-----------\n" +
             " O | O | X\n" +
             "Game is over! X wins.", lastMsg);
-
   }
+
+  // Play game to completion, where there is a winner
+  @Test
+  public void testTie () {
+    String lastMsg = this.runGameHelper("2 2 2 2 1 1 1 1 3 3 3 3 1 2 1 2 1 3 1 3 2 3 2 3 2 1 2 1 3 1 3 1 3 2 3 2", 0);
+    assertEquals(
+            " O | O | X\n" +
+                    "-----------\n" +
+                    " X | X | O\n" +
+                    "-----------\n" +
+                    " O | X | X\n" +
+                    "Game is over! Tie game.", lastMsg);
+  }
+
+  // Playgame, where there is a winner O
+  @Test
+  public void testWinnerO () {
+
+    String lastMsg = this.runGameHelper("1 1 1 2 1 3 1 1 1 2 1 3 2 1 3 3 2 2 3 2 2 3 2 2", 0);
+    assertEquals(
+            " X | O | X\n" +
+                    "-----------\n" +
+                    " O | O | O\n" +
+                    "-----------\n" +
+                    "   | X | X\n" +
+                    "Game is over! O wins.", lastMsg);
+  }
+
+
   // Input where the q comes instead of an integer for the row
   @Test
   public void testQInRow () {
