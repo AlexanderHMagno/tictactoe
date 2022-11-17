@@ -78,6 +78,8 @@ public class TicTacToeConsoleController implements TicTacToeController{
             this.printLine("Game is over! " + (m.getWinner() == null ? "Tie game." :  m.getWinner() + " wins."));
 
         } catch (IOException | NoSuchElementException n) {
+
+            System.out.println(this.out.toString());
             throw new IllegalStateException();
         }
     }
