@@ -51,7 +51,7 @@ public class TicTacToeConsoleController implements TicTacToeController{
                             m.move(data[0] - 1 , data[1] - 1);
                             break;
                         } catch (IllegalArgumentException e) {
-                            this.printLine("Not a valid movement " + data[0] + ", " + data[1]);
+                            this.printLine("Not a valid move " + data[0] + ", " + data[1]);
                             resetData(data);
                         }catch (IllegalStateException e) {
                             break;
