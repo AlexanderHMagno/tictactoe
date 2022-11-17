@@ -24,8 +24,7 @@ public class TicTacToeConsoleController implements TicTacToeController{
      */
     public TicTacToeConsoleController(Readable in, Appendable out) throws IllegalArgumentException {
 
-        testValidArgument(in);
-        testValidArgument(out);
+        testValidArgument(in,out);
 
         this.in = in;
         this.out = out;
@@ -122,9 +121,9 @@ public class TicTacToeConsoleController implements TicTacToeController{
      * @param o Verify the object is not null
      * @throws IllegalStateException If the Model is invalid
      */
-    private void testValidArgument (Object o) throws IllegalArgumentException {
+    private void testValidArgument (Object ...o) throws IllegalArgumentException {
         try {
-            Objects.requireNonNull(o);
+            for (Object a:o) Objects.requireNonNull(a);
         } catch (Exception e) {
             throw new IllegalArgumentException();
         }
