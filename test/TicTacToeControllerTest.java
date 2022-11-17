@@ -248,6 +248,18 @@ public class TicTacToeControllerTest {
     this.runGameHelper("1 1 2 2 2 3 3", 0);
   }
 
+  /**
+   * Check the model is valid, if null passed throw error
+   */
+  @Test (expected = IllegalStateException.class)
+  public void invalidModel () {
+
+    StringReader input = new StringReader("2 2");
+    StringBuilder gameLog = new StringBuilder();
+    TicTacToeController c = new TicTacToeConsoleController(input, gameLog);
+    c.playGame(null);
+
+  }
 
   /**
    * Helper method to create a based on the gamePath that was provided

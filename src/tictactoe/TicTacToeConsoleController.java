@@ -29,11 +29,13 @@ public class TicTacToeConsoleController implements TicTacToeController{
 
     @Override
     public void playGame(TicTacToe m) throws IllegalStateException {
-        Objects.requireNonNull(m);
-        Scanner scan = new Scanner(this.in);
+
+        //Check we have a valid model
+        testValidModel(m);
 
         //Use this array to control the row and column inputs
         int[] data = new int[2];
+        Scanner scan = new Scanner(this.in);
 
         try {
             //We need a loop to control the rounds
@@ -78,8 +80,6 @@ public class TicTacToeConsoleController implements TicTacToeController{
             this.printLine("Game is over! " + (m.getWinner() == null ? "Tie game." :  m.getWinner() + " wins."));
 
         } catch (IOException | NoSuchElementException n) {
-
-            System.out.println(this.out.toString());
             throw new IllegalStateException();
         }
     }
@@ -112,4 +112,16 @@ public class TicTacToeConsoleController implements TicTacToeController{
         this.printLine(m.toString());
     }
 
+    /**
+     * Test if Model is valid otherwise throws an error
+     * @param m Tic Tac Toe Model
+     * @throws IllegalStateException If the Model is invalid
+     */
+    private void testValidModel (TicTacToe m) throws IllegalStateException {
+        try {
+            Objects.requireNonNull(m);
+        } catch (Exception e) {
+            throw new IllegalStateException();
+        }
+    }
 }
