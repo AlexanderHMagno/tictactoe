@@ -95,6 +95,46 @@ public class TicTacToeControllerTest {
     c.playGame(m);
   }
 
+  // What happens when the input ends "abruptly" -- no more input, but not quit, and game not over
+  @Test (expected = IllegalStateException.class)
+  public void testTerminatedAbruptly () {
+    this.runGameHelper("1 1 2 2 2 3 3", 0);
+  }
+
+  /**
+   * Check the model is valid, if null passed throw error
+   */
+  @Test (expected = IllegalArgumentException.class)
+  public void invalidModel () {
+
+    StringReader input = new StringReader("2 2");
+    StringBuilder gameLog = new StringBuilder();
+    TicTacToeController c = new TicTacToeConsoleController(input, gameLog);
+    c.playGame(null);
+
+  }
+
+  /**
+   * Check the Constructor throws error if invalid Readable
+   */
+  @Test (expected = IllegalArgumentException.class)
+  public void invalidArgumentsControllerReadable() {
+    StringBuilder gameLog = new StringBuilder();
+    new TicTacToeConsoleController(null, gameLog);
+  }
+
+
+  /**
+   * Check the Constructor throws error if invalid Appendable
+   */
+  @Test (expected = IllegalArgumentException.class)
+  public void invalidArgumentsControllerAppendable() {
+    StringReader input = new StringReader("2 2");
+    new TicTacToeConsoleController(input, null);
+  }
+
+
+
   // Play game to completion, where there is a winner
   @Test
   public void testWinnerX () {
@@ -136,7 +176,7 @@ public class TicTacToeControllerTest {
   }
 
 
-  // Input where the q comes instead of an integer for the row
+  // Input where the q comes instead of an integer for the row (it test lower q)
   @Test
   public void testQInRow () {
 
@@ -150,7 +190,7 @@ public class TicTacToeControllerTest {
 
   }
 
-  // Input where the q comes instead of an integer for the column
+  // Input where the q comes instead of an integer for the column ( it test Upper Q)
   @Test
   public void testQInColumn () {
     String lastMsg = this.runGameHelper("2 2 1 Q ", 0);
@@ -241,32 +281,6 @@ public class TicTacToeControllerTest {
                     " X | O | X\n" +
                     "Game is over! Tie game.", lastMsg);
 
-  }
-  // What happens when the input ends "abruptly" -- no more input, but not quit, and game not over
-  @Test (expected = IllegalStateException.class)
-  public void testTerminatedAbruptly () {
-    this.runGameHelper("1 1 2 2 2 3 3", 0);
-  }
-
-  /**
-   * Check the model is valid, if null passed throw error
-   */
-  @Test (expected = IllegalArgumentException.class)
-  public void invalidModel () {
-
-    StringReader input = new StringReader("2 2");
-    StringBuilder gameLog = new StringBuilder();
-    TicTacToeController c = new TicTacToeConsoleController(input, gameLog);
-    c.playGame(null);
-
-  }
-
-  /**
-   * Check the model is valid, if null passed throw error
-   */
-  @Test (expected = IllegalArgumentException.class)
-  public void invalidArgumentsController() {
-    new TicTacToeConsoleController(null, null);
   }
 
   /**

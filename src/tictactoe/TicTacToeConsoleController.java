@@ -24,21 +24,18 @@ public class TicTacToeConsoleController implements TicTacToeController{
      */
     public TicTacToeConsoleController(Readable in, Appendable out) throws IllegalArgumentException {
 
-        try {
-            Objects.requireNonNull(in);
-            Objects.requireNonNull(out);
-            this.in = in;
-            this.out = out;
-        } catch (Exception n) {
-            throw new IllegalArgumentException();
-        }
+        testValidArgument(in);
+        testValidArgument(out);
+
+        this.in = in;
+        this.out = out;
     }
 
     @Override
     public void playGame(TicTacToe m) throws IllegalStateException,IllegalArgumentException {
 
         //Check we have a valid model
-        testValidModel(m);
+        testValidArgument(m);
 
         //Use this array to control the row and column inputs
         int[] data = new int[2];
@@ -65,6 +62,7 @@ public class TicTacToeConsoleController implements TicTacToeController{
                             return;
                         } else {
                             this.printLine("Not a valid number: " + scan.next());
+                            //Reset Loop to verify both Row - column
                             i = -1;
                         }
                     }
@@ -121,12 +119,12 @@ public class TicTacToeConsoleController implements TicTacToeController{
 
     /**
      * Test if Model is valid otherwise throws an error
-     * @param m Tic Tac Toe Model
+     * @param o Verify the object is not null
      * @throws IllegalStateException If the Model is invalid
      */
-    private void testValidModel (TicTacToe m) throws IllegalArgumentException {
+    private void testValidArgument (Object o) throws IllegalArgumentException {
         try {
-            Objects.requireNonNull(m);
+            Objects.requireNonNull(o);
         } catch (Exception e) {
             throw new IllegalArgumentException();
         }
